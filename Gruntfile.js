@@ -11,7 +11,12 @@ module.exports = function(grunt) {
       files: {
         src: ['dist/release.zip'] // Files that you want to attach to Release
       }
-
     }
   });
+
+  grunt.registerTask('test', function(){
+
+  });
+
+  grunt.registerTask('default', ['test']);
 };

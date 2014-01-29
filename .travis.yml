@@ -1,12 +1,12 @@
-language:
-    node_js
+language: node_js
 node_js:
-    - 0.10
+- 0.1
 notifications:
-    irc: "irc.freenode.org#generator-travis-ci"
+  irc: irc.freenode.org#generator-travis-ci
 before_script:
-    # install dependencies
-    - npm install -g grunt-cli
+- npm install -g grunt-cli
 script:
-    # We want to gate on passing tests and a successful build
-    - grunt
+- grunt
+env:
+  global:
+    secure: v+2oVhQAexk32TBwUm2EoYncRVpyw2xZbzLsdM9VHf5hmFHyL+/So2HaPmX0eozm+3JmMc3Cwq/Wg4R8UzcAbs72/WePuwGpH4SdYNVLt2wERSgo9LKiofTVSU8SMxEXv7Js08YdmH1M3XGwpWTDYEqBf8pX7i8uz0Z1pvmqsTM=
