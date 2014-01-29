@@ -1,0 +1,23 @@
+{
+  "name": "ci-test",
+  "version": "0.0.0",
+  "description": "Testing CI and pushing GitHub releases",
+  "main": "index.js",
+  "scripts": {
+    "test": "grunt"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/taras/ci-test.git"
+  },
+  "author": "Taras Mankovski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/taras/ci-test/issues"
+  },
+  "homepage": "https://github.com/taras/ci-test",
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-github-releaser": "~0.1.16"
+  }
+}
