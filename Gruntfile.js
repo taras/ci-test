@@ -4,8 +4,12 @@ module.exports = function(grunt) {
     env: {
       user: 'taras',
       repository: 'ci-test',
-      commit: process.env.TRAVIS_COMMIT,
       gh_token: process.env.GH_TOKEN
+    },
+    gitinfo: {
+      commands: {
+        commit: ['describe', '--always', '--tag']
+      }
     },
     clean: {
       "gh-pages": ['gh-pages']
@@ -14,7 +18,7 @@ module.exports = function(grunt) {
       dist: {
         cwd: 'src',
         src: ['src/**/*'],
-        dest: 'gh-pages/builds/<%= env.commit %>.zip'
+        dest: 'gh-pages/builds/<%= gitinfo.commit %>.zip'
       }
     },
     shell: {
@@ -22,39 +26,49 @@ module.exports = function(grunt) {
         stderr: true
       },
       "clone-gh-pages": {
-        command: "git clone https://<%= env.gh_token %>@github.com/<%= env.user %>/<%= env.repository %>.git --branch=gh-pages gh-pages",
-        options: {
-          cwd: 'gh-pages'
-        }
+        command: "git clone https://<%= env.gh_token %>@github.com/<%= env.user %>/<%= env.repository %>.git --branch=gh-pages gh-pages"
       },
       "add-build": {
-        command: "git add -A",
+        command: "git add builds",
         options: {
-          cwd: 'gh-pages'
+          execOptions: {
+            cwd: 'gh-pages'
+          }
         }
       },
       "commit-build": {
-        command: "git commit -m 'Committed build for <%= env.commit %>'",
+        command: "git commit -m 'Committed build for <%= gitinfo.commit %>'",
         options: {
-          cwd: 'gh-pages'
+          execOptions: {
+            cwd: 'gh-pages'
+          }
         }
       },
       "push-build": {
-        command: "git push origin gh-pages",
+        command: "git push",
         options: {
-          cwd: 'gh-pages'
+          execOptions: {
+            cwd: 'gh-pages'
+          }
         }
       }
     }
   });
 
+  grunt.loadNpmTasks('grunt-gitinfo');
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-zip');
 
   grunt.registerTask('test', function(){});
 
-  grunt.registerTask('release', ['zip:dist'])
+  grunt.registerTask('release', ['gitinfo',
+                                 'clean:gh-pages',
+                                 'shell:clone-gh-pages',
+                                 'zip:dist',
+                                 'shell:add-build',
+                                 'shell:commit-build',
+                                 'shell:push-build']);
 
   grunt.registerTask('default', ['test']);
 

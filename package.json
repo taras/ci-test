@@ -18,6 +18,7 @@
   "homepage": "https://github.com/taras/ci-test",
   "devDependencies": {
     "grunt": "~0.4.2",
-    "grunt-shell": "~0.6.4"
+    "grunt-shell": "~0.6.4",
+    "grunt-gitinfo": "~0.1.4"
   }
 }
