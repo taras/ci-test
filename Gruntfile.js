@@ -63,6 +63,17 @@ module.exports = function(grunt) {
           }
         }
       }
+    },
+    to_html: {
+      "build-index": {
+        options: {
+          generatePage: true,
+          template: grunt.file.read('template.jade')
+        },
+        files: {
+          'gh-pages/builds/index.html': 'gh-pages/builds/*.zip'
+        }
+      }
     }
   });
 
@@ -70,6 +81,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-zip');
+  grunt.loadNpmTasks('grunt-directory-to-html');
 
   grunt.registerTask('test', function(){});
 
@@ -78,6 +90,7 @@ module.exports = function(grunt) {
                                  'shell:clone-gh-pages',
                                  'shell:set-ident',
                                  'zip:dist',
+                                 'to_html:build-index',
                                  'shell:add-build',
                                  'shell:commit-build',
                                  'shell:push-build']);
