@@ -26,7 +26,18 @@ module.exports = function(grunt) {
         stderr: true
       },
       "clone-gh-pages": {
-        command: "git clone https://<%= env.gh_token %>@github.com/<%= env.user %>/<%= env.repository %>.git --branch=gh-pages gh-pages"
+        command: "git clone --quiet --branch=gh-pages https://<%= env.gh_token %>@github.com/<%= env.user %>/<%= env.repository %>.git gh-pages"
+      },
+      "set-ident": {
+        command: [
+          'git config --global user.email "travis@travis-ci.org"',
+          'git config --global user.name "Travis"'
+        ].join('&&'),
+        options: {
+          execOptions: {
+            cwd: 'gh-pages'
+          }
+        }
       },
       "add-build": {
         command: "git add builds",
@@ -65,6 +76,7 @@ module.exports = function(grunt) {
   grunt.registerTask('release', ['gitinfo',
                                  'clean:gh-pages',
                                  'shell:clone-gh-pages',
+                                 'shell:set-ident',
                                  'zip:dist',
                                  'shell:add-build',
                                  'shell:commit-build',
