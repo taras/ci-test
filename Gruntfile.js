@@ -28,21 +28,21 @@ module.exports = function(grunt) {
         }
       },
       "add-build": {
-        command: "git add .",
+        command: "git add -A",
         options: {
-          cmd: 'gh-pages'
+          cwd: 'gh-pages'
         }
       },
       "commit-build": {
         command: "git commit -m 'Committed build for <%= env.commit %>'",
         options: {
-          cmd: 'gh-pages'
+          cwd: 'gh-pages'
         }
       },
       "push-build": {
         command: "git push origin gh-pages",
         options: {
-          cmd: 'gh-pages'
+          cwd: 'gh-pages'
         }
       }
     }
