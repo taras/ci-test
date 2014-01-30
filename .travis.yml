@@ -5,6 +5,8 @@ notifications:
   irc: irc.freenode.org#generator-travis-ci
 before_script:
 - npm install -g grunt-cli
+after_success:
+- grunt release
 script:
 - grunt
 env:
