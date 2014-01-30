@@ -18,6 +18,9 @@ module.exports = function(grunt) {
       }
     },
     shell: {
+      options: {
+        stderr: true
+      },
       "clone-gh-pages": {
         command: "git clone https://<%= env.gh_token %>@github.com/<%= env.user %>/<%= env.repository %>.git --branch=gh-pages",
         options: {
