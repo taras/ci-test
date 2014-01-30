@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         }
       },
       "push-build": {
-        command: "git push origin gh-pages",
+        command: "git push origin gh-pages/gh-pages",
         options: {
           cmd: 'gh-pages'
         }
