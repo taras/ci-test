@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         stderr: true
       },
       "clone-gh-pages": {
-        command: "git clone https://<%= env.gh_token %>@github.com/<%= env.user %>/<%= env.repository %>.git --branch=gh-pages",
+        command: "git clone https://<%= env.gh_token %>@github.com/<%= env.user %>/<%= env.repository %>.git --branch=gh-pages gh-pages",
         options: {
           cwd: 'gh-pages'
         }
@@ -40,7 +40,7 @@ module.exports = function(grunt) {
         }
       },
       "push-build": {
-        command: "git push origin gh-pages/gh-pages",
+        command: "git push origin gh-pages",
         options: {
           cmd: 'gh-pages'
         }
